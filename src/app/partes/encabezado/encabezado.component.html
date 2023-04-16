@@ -1,0 +1,45 @@
+<nav class="navbar navbar-dark bg-primary navbar-expand-lg mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Reservaciones NMG</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" aria-current="page" routerLink="/" data-toggle="collapse"
+            data-target=".navbar-collapse">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/compradores']" data-toggle="collapse"
+            data-target=".navbar-collapse">Compradores</a>
+        </li>
+        <!--         <li class="nav-item dropdown">
+          <a class="nav-link" [routerLinkActive]="['active']" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false" routerLink="puntos-de-entrega">
+            Puntos de Entrega
+          </a>
+
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/productos']" data-toggle="collapse"
+            data-target=".navbar-collapse.in">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/pedidos']" data-toggle="collapse"
+            data-target=".navbar-collapse">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/login']" data-toggle="collapse"
+            data-target=".navbar-collapse">Salir</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <button class="btn btn-outline-light" type="submit" [routerLink]="['/reservaciones/crear']"
+          data-toggle="collapse" data-target=".navbar-collapse">Hacer
+          Reservacion</button>
+      </form>
+    </div>
+  </div>
+</nav>

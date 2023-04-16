@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-crear-comprador">Crear Nota</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cerrarCrearNota()"></button>
+</div>
+<div class="modal-body p-0">
+  <form [formGroup]="planillaNota">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-12">
+            <quill-editor formControlName="nota"></quill-editor>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+  </form>
+</div>
+<div class="modal-body border-top" *ngIf="mensaje">
+  <div [innerHTML]="mensaje">{{mensaje }}</div>
+</div>
+<div class="modal-footer">
+  <div class="col text-start">
+    <button type="submit" class="btn btn-outline-secondary" *ngIf="quehacer=='ingresar'"
+      (click)="crearNota(planillaNota.value)">Crear</button>
+    <button type="submit" class="btn btn-outline-secondary" *ngIf="quehacer=='editar'"
+      (click)="editarNota(planillaNota.value)">Actualizar</button>
+  </div>
+</div>

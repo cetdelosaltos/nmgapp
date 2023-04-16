@@ -1,0 +1,44 @@
+<div class="container ">
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Area de Logueo
+        </div>
+        <div class="card-body">
+          <form action="" (submit)="iniciarSesion(planillaLog.value)" [formGroup]="planillaLog">
+            <div class="mb-3">
+              <input type="email" (change)="verificarPlanilla()" formControlName="correo" id="correo"
+                class="form-control" placeholder="Email" autocomplete="email" />
+            </div>
+            <div class="mb-3">
+              <div class="input-group">
+                <input [type]="fieldTextType ? 'text' : 'password'" (change)="verificarPlanilla()"
+                  formControlName="contrasena" id="contra" class="form-control" placeholder="Password"
+                  autocomplete="current-password" />
+                <div class="input-group-text" (click)="verContra()">
+                  <i class="bi" [class]="fieldTextType ? 'bi-eye': 'bi-eye-slash' "></i>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="spinner-border text-primary b-inline" role="status" *ngIf="logueando">
+                  <span class="visually-hidden">Loading...</span>
+                </div> {{ mensaje }}
+              </div>
+              <div class="col text-end">
+                <button type="submit" class="btn btn-primary" [disabled]="!planillaLog.valid || logueando">
+                  Iniciar Sesión
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

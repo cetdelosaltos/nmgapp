@@ -1,0 +1,61 @@
+<ng-container *ngIf="!notasCargadas; else elseTemplate">
+  <precargador></precargador>
+</ng-container>
+<ng-template #elseTemplate>
+
+</ng-template>
+
+<div class="container pt-5" *ngIf="lasnotas">
+  <div class="row">
+    <div class="col">
+      <h3 class="text-success">
+        Notas:
+      </h3>
+    </div>
+  </div>
+  <div class="row" id="lasNotas">
+    <div class="col-12">
+      <div class="list-group">
+        <div *ngFor="let item of lasnotas;" class="list-group-item">
+          <div class="row">
+            <div class="col-auto">
+              <input class="form-check-input" type="checkbox" (click)="marcarListo(item)">
+            </div>
+            <div class="col">
+              <div [innerHTML]="item.nota | safe:'html'"> </div>
+            </div>
+            <div class="col-auto">
+              <div href="#" class="badge badge-pill bg-primary m-1" (click)="editarNota(item)"><i class="bi bi-pen"></i>
+              </div>
+              <div href="#" class="badge badge-pill bg-danger m-1" (click)="borrarNota(item)"><i
+                  class="bi bi-trash3"></i></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <h5 *ngIf="pasadas" class="text-primary mt-3">Pasadas</h5>
+      <div class="list-group">
+        <div *ngFor="let item of pasadas;" class="list-group-item bg-dark" style="--bs-bg-opacity: .1;">
+          <div class="row">
+            <div class="col">
+              <div [innerHTML]="item.nota | safe:'html'"> </div>
+            </div>
+            <div class="col-auto">
+              <div href="#" class="badge badge-pill bg-primary m-1" (click)="editarNota(item)"><i class="bi bi-pen"></i>
+              </div>
+              <div href="#" class="badge badge-pill bg-danger m-1" (click)="borrarNota(item)"><i
+                  class="bi bi-trash3"></i></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="ingresarNotaModal()">Crear Nota</button>
+    </div>
+  </div>
+</div>
