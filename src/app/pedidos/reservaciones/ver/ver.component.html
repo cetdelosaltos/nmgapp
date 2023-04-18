@@ -1,0 +1,71 @@
+<div class="modal-header bg-light">
+  <span class="modal-title" id="modal-crear-comprador">Reservación a nombre de: <br> <strong>
+      <a [routerLink]="['/compradores',reservacion?.comprador?.id]" (click)="cerramodo()" class="vinculo-falso">{{
+        reservacion?.comprador?.nombre }}</a> </strong></span>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cerramodo()"></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col">
+      <span class="fw-bold">Status: </span><span
+        [class]="reservacion?.estatus =='activo' ? 'text-danger' : 'text-success'">
+        {{
+        reservacion?.estatus | uppercase}}</span><br>
+      <span class="fw-bold">Fecha de Entrega: </span>{{ fecha.dia | date }}
+      <br>
+      <span class="fw-bold"> Hora de Entrega</span>: {{ fecha.hora }}
+    </div>
+    <div class="col-auto">
+      <span class="fw-bold">Punto de Entrega: <br> </span>{{ reservacion.locacion }}
+    </div>
+  </div>
+</div>
+<div class="modal-body border-top border-bottom bg-light">
+  <div class="row">
+    <div class="col-4">
+      <span class="text-primary fw-bold">Pedido</span>
+    </div>
+    <div class="col-8 text-end">
+      <strong>Total:</strong> {{ total | currency }}
+    </div>
+  </div>
+</div>
+<ul class="list-group list-group-flush">
+  <ng-container *ngFor="let raso of reservacion.reservas">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-auto">
+          <div class="fw-bold text-primary">{{ raso.cantidad }}</div>
+        </div>
+        <div class="col ">
+          <strong>{{raso?.producto?.nombre }}</strong> - <small>{{ raso?.producto?.precio | currency }}</small><br>
+          <span *ngIf="raso.observacion">
+            <em>Observaciones:</em>
+            {{raso.observacion}}
+          </span>
+        </div>
+      </div>
+    </li>
+  </ng-container>
+
+</ul>
+<div class="modal-footer">
+  <div class="row w-100 justify-content-between">
+    <div class="col text-start">
+      <button type="submit" class="btn btn-primary" [routerLink]="['/reservaciones/actualizar', reservacion.id]"
+        [state]="reservacion" (click)="cerramodo()" [disabled]="!conexion">Actualizar</button>
+    </div>
+    <div class="col text-center">
+      <button type="submit" class="btn btn-danger ms-2" (click)="eliminarReservacion(reservacion)"
+        [disabled]="!conexion">Eliminar</button>
+    </div>
+    <div class="col text-end" *ngIf="reservacion.estatus !== 'entregado'">
+      <button type=" submit" class="btn btn-success" [disabled]="!conexion"
+        (click)="entregarPedido(reservacion)">Entregar</button>
+    </div>
+    <div class="col text-end" *ngIf="reservacion.estatus == 'entregado'">
+      <button type=" submit" class="btn btn-primary" (click)="reactivarPedido(reservacion)"
+        [disabled]="!conexion">Reactivar</button>
+    </div>
+  </div>
+</div>

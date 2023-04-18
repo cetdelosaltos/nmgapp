@@ -1,0 +1,85 @@
+<ng-container *ngIf="cargando; else inicioCargado">
+  <precargador></precargador>
+</ng-container>
+<ng-template #inicioCargado>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 col">
+        <div class="row">
+          <div class="col-md-3">
+            <h1>Para Hoy </h1>
+          </div>
+          <div class="col-md-9">
+            <h1 class="text-primary">{{ hoy }} - <small class="text-secondary">{{ reloj | date: 'hh:mm a' }}</small>
+            </h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col text-end">
+        <a [routerLink]="(['/pedidos/crear'])" class=" btn btn-primary">
+          Hacer Reservacion
+        </a>
+      </div>
+
+
+
+      <div class="col-6 col-md">
+
+      </div>
+      <div class="col-6 col-md-auto text-center">
+
+      </div>
+      <div class="col text-end">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-md-auto text-center mb-3">
+        <ngb-datepicker #dp (dateSelect)="traerReservas($event)" (navigate)="date = $event.next"
+          [dayTemplate]="customDay" class="w-100"></ngb-datepicker>
+        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected"
+          let-disabled="disabled" let-focused="focused">
+          <span class="custom-day border-secondary h-100 d-flex align-items-center justify-content-center text-center"
+            [class.focused]="focused" [class.bg-secondary]=" eshoy(date)" [class.bg-primary]="selected "
+            [class.text-muted]="disabled" [class.border]="tienePedido(date)">
+            {{ date.day }}
+          </span>
+        </ng-template>
+      </div>
+      <div class="col">
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Locacion</th>
+              <th scope="col">Producto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let reser of reservas">
+              <ng-container *ngFor="let raso of reser?.reservas">
+                <tr (click)="verReserva(reser)">
+                  <th scope="row">{{raso.cantidad}}</th>
+                  <td>{{ reser?.locacion }}</td>
+                  <td>
+                    <div class="row">
+                      <div class="col">
+                        {{ raso.producto.nombre }}
+                      </div>
+                      <div class="col-auto text-end">
+                        <button class="btn btn-sm btn-primary">Ver Reserva</button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- <lista-notas></lista-notas> -->
+</ng-template>

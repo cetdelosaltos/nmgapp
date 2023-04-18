@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
-
 const delogueado = () => redirectUnauthorizedTo(['/login']);
 export const caminos: Routes = [
   {
@@ -15,9 +14,24 @@ export const caminos: Routes = [
     ...canActivate(delogueado)
   },
   {
+    path: 'pedidos',
+    loadChildren: () =>
+      import('./pedidos/pedidos-routing')
+        .then(m => m.pedidosRutas),
+    ...canActivate(delogueado)
+  },
+  {
     path: 'login',
     loadComponent: () => import('./logueo/logueo.component').then(m => m.LogueoComponent)
   },
+  {
+    path: '**', redirectTo: '', pathMatch: 'full'
+  },
+  /*   {
+      path: 'migrar',
+      loadComponent: () => import('./migracion/migracion.component').then(m => m.MigracionComponent),
+      ...canActivate(delogueado)
+    }, */
 ];
 
 @NgModule({

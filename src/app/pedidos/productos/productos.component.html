@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="d-inline">Productos</h1> {{ filtrados?.length }}
+    </div>
+    <div class="col text-end">
+      <button class="btn btn-outline-primary" [routerLink]="['/pedidos/productos/importar']">Importar Excel</button>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <div class="input-group">
+        <input type="text" #filtrante class="form-control" placeholder="Buscar Productos"
+          (input)="filtrar(filtrante.value)" id="">
+        <button (click)="verTodos()" class="btn btn-outline-primary">
+          Ver Todos</button>
+      </div>
+    </div>
+  </div>
+  <div class="row vh-50 overflow-auto">
+    <div class="col">
+      <div class="list-group">
+        <div class="list-group-item" *ngFor="let producto of filtrados">
+          {{ producto.nombre }} - <small>{{ producto.precio | currency }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <lista-notas></lista-notas> -->

@@ -11,9 +11,51 @@
           <a class="nav-link" [routerLinkActive]="['active']" aria-current="page" routerLink="/" data-toggle="collapse"
             data-target=".navbar-collapse">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/compradores']" data-toggle="collapse"
-            data-target=".navbar-collapse">Compradores</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reservaciones
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/pedidos/reservaciones']"
+                data-toggle="collapse" data-target=".navbar-collapse">Reservaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/pedidos/compradores']"
+                data-toggle="collapse" data-target=".navbar-collapse">Compradores</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/pedidos/productos']"
+                data-toggle="collapse" data-target=".navbar-collapse.in">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/pedidos/lista']"
+                data-toggle="collapse" data-target=".navbar-collapse">Pedidos</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Servicios
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/']" data-toggle="collapse"
+                data-target=".navbar-collapse">Reservaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/']" data-toggle="collapse"
+                data-target=".navbar-collapse">Clientes</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/']" data-toggle="collapse"
+                data-target=".navbar-collapse.in">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" [routerLinkActive]="['active']" [routerLink]="['/']" data-toggle="collapse"
+                data-target=".navbar-collapse">Historial</a>
+            </li>
+          </ul>
         </li>
         <!--         <li class="nav-item dropdown">
           <a class="nav-link" [routerLinkActive]="['active']" role="button" data-bs-toggle="dropdown"
@@ -23,23 +65,12 @@
 
         </li> -->
         <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/productos']" data-toggle="collapse"
-            data-target=".navbar-collapse.in">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/pedidos']" data-toggle="collapse"
-            data-target=".navbar-collapse">Pedidos</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/login']" data-toggle="collapse"
             data-target=".navbar-collapse">Salir</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <button class="btn btn-outline-light" type="submit" [routerLink]="['/reservaciones/crear']"
-          data-toggle="collapse" data-target=".navbar-collapse">Hacer
-          Reservacion</button>
-      </form>
+      <button class="btn btn-outline-light" type="button" [routerLink]="['/pedidos/crear']">Hacer
+        Reservacion</button>
     </div>
   </div>
 </nav>

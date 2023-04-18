@@ -1,0 +1,172 @@
+<ng-container *ngIf="!cargado; else elseTemplate">
+  <i class="bi bi-arrow-clockwise"></i>
+</ng-container>
+<ng-template #elseTemplate>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Hacer Reservación</h1>
+      </div>
+      <div class="col-md-12">
+        <p>
+
+          <label class="form-label"> Buscar Cliente:</label> <input id="typeahead-basic" type="text"
+            class="form-control" [(ngModel)]="filtrado" [ngbTypeahead]="buscarComprador"
+            [inputFormatter]="formatComprador" [resultFormatter]="formatComprador" [editable]="false" />
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <ng-container *ngIf="filtrado; else elseTemplate">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 order-md-2">
+                  <form action="" [formGroup]="planillaOtrosDatos">
+
+                    <div class="fw-bold">
+                      Datos de la Entrega
+                    </div>
+                    <div>
+                      <div class="input-group">
+
+                        <label for="" class="input-group-text">
+                          Fecha de Entrega:
+                        </label>
+                        <input type="date" formControlName="fecha_entrega" id="" class="form-control"
+                          [class]="planillaOtrosDatos.controls.fecha_entrega.valid?'':'is-invalid'"
+                          min="{{hoyes | date:'yyyy-MM-dd'}}">
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <div class="input-group">
+                        <label for="" class="input-group-text">
+                          Hora de Entrega:
+                        </label>
+                        <ngb-timepicker formControlName="hora_entrega" [meridian]="true" [spinners]="false"
+                          [hourStep]="1" [minuteStep]="30" class="form-control"
+                          [class]="planillaOtrosDatos.controls.hora_entrega.valid?'':'is-invalid'"></ngb-timepicker>
+                        <!--  <input type="time" formControlName="hora_entrega" id="" step="1800" class="form-control"
+                          [class]="planillaOtrosDatos.controls.hora_entrega.valid?'':'is-invalid'"> -->
+                      </div>
+                    </div>
+                    <div class="mt-2">
+                      <div class="input-group">
+                        <label for="" class="input-group-text">
+                          Lugar de Entrega:
+                        </label>
+                        <select formControlName="locacion" class="form-select"
+                          [class]="planillaOtrosDatos.controls.locacion.valid?'':'is-invalid'">
+                          <option value="Tienda Física">Tienda Física</option>
+                          <option value="Delivery">Delivery</option>
+                          <option value="Consolidado">Consolidado</option>
+                        </select>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-6 order-md-1">
+                  <div class="fw-bold">
+                    Comprador
+                  </div>
+                  Nombre y Apellido : {{filtrado.nombre}}<br>
+                  Teléfono: {{filtrado.telefono}} <br>
+                  Correo Electrónico: {{filtrado.correo}}
+                  <div class="mt-2">
+                    <button class="btn btn-sm btn-primary" [routerLink]="['/compradores',filtrado.$key]">Actualizar
+                      Datos del Comprador</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-header border-top">
+              Pedido
+            </div>
+            <div class="card-body">
+              <ng-container *ngFor="let form of formularioPedidos">
+                <form [formGroup]="form">
+                  <div class="row g-2 g-md-4">
+                    <div class="col">
+
+                      <div class="row">
+                        <div class="col-md-3 mb-2 mb-md-0">
+                          <div class="input-group">
+                            <span for="cantidad" class="input-group-text"> Cantidad </span>
+                            <input id="username" type="number" formControlName="cantidad" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="input-group">
+                            <label class="input-group-text"> Producto </label>
+                            <input id="productoBuscadors" type="text" formControlName="producto" class="form-control"
+                              [ngbTypeahead]="buscarProductos" [inputFormatter]="formatoProd"
+                              [resultFormatter]="formatoProd" [editable]="false"
+                              [class]="form.valid?'is-valid':'is-invalid'">
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="row my-2">
+
+                        <div class="col-md-12">
+                          <div class="input-group">
+                            <label class="input-group-text"> Observación</label>
+                            <input type="text" formControlName="observacion" class="form-control">
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <span class="d-none d-md-block">
+                        <button class="btn btn-outline-danger" (click)="borrarFila(form)">
+                          Eliminar Fila
+                        </button>
+                      </span>
+                      <span class="d-md-none"><button class="btn btn-sm btn-outline-danger" (click)="borrarFila(form)">
+                          X
+                        </button></span>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <hr>
+                    </div>
+                  </div>
+                </form>
+              </ng-container>
+              <div class="row">
+                <div class="col-md-12 text-end">
+                  <button class="btn btn-sm btn-primary" (click)="agregarFila()">Agregar Fila de
+                    Productos</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer ">
+              <div class="row">
+                <div class="col-md-8">
+                  {{mensaje}}
+                </div>
+                <div class="col-md-4 text-end">
+                  <button *ngIf="textoBoton=='registro'" (click)="hacerReservacion(this.formularioPedidos)"
+                    class="btn btn-secondary">Registrar Pedido</button>
+                  <button *ngIf="textoBoton=='actualizar'" (click)="actualizarReservacion(this.formularioPedidos)"
+                    class="btn btn-secondary">Actualizar Pedido</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <button class="btn btn-outline-primary my-2" [routerLink]="['/compradores','nuevo']">Comprador
+            Nuevo</button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-template>
